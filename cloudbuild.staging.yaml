@@ -6,13 +6,15 @@ steps:
   - name: gcr.io/cloud-builders/docker
     id  : BUILD
     args: ['build', '-t', '$_SERVICE_IMAGE', '.', '-f', 'Dockerfile']
-
+options:
+  default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
 # Docker Push Image to Artifact Registry
   - name: gcr.io/cloud-builders/docker
     id  : PUSH
     args: ['push', '$_SERVICE_IMAGE']
-
-# Docker Deploy image to Cloud Run
+  options:
+    default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
+  # Docker Deploy image to Cloud Run
   - name: gcr.io/cloud-builders/gcloud
     id  : DEPLOY
     args:
@@ -23,7 +25,8 @@ steps:
       - --project=$_SERVICE_PROJECT
       - --region=$_SERVICE_REGION
       - --image=$_SERVICE_IMAGE
-
+  options:
+    default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
 images: # Display the image in the build results - Build Artifacts
 - $_SERVICE_IMAGE
 
