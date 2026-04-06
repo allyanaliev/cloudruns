@@ -19,6 +19,7 @@ steps:
       - 'run'
       - 'deploy'
       - '$_SERVICE_NAME'
+      - '--port=80'
       - '--project=$_SERVICE_PROJECT'
       - '--region=$_SERVICE_REGION'
       - '--image=$_SERVICE_IMAGE'
@@ -30,6 +31,7 @@ images:
   - '$_SERVICE_IMAGE'
 
 substitutions:
+    # Updated to me-west1 and alisher-docker-repo
     _SERVICE_IMAGE    : me-west1-docker.pkg.dev/my-project-staging-492518/${_DOCKER_REGISTRY}/${_DOCKER_IMAGENAME}:${SHORT_SHA}
     _SERVICE_REGION   : me-west1
     _SERVICE_PROJECT  : my-project-staging-492518
